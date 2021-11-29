@@ -7,7 +7,8 @@
       <option value="窗簾">窗簾</option>
     </select>
     <ul class="productWrap">
-      <li class="productCard" v-for="item in productList" :key="item.id">
+      <Loading :active="isLoading" />
+      <li class="productCard" v-for="item in products" :key="item.id">
         <h4 class="productType">新品</h4>
         <img :src="item.images" :alt="item.description" />
         <a href="#" class="addCardBtn">加入購物車</a>
@@ -22,25 +23,32 @@
 import * as customerService from '@/services/customer';
 
 export default {
-  date() {
+  data() {
     return {
-      selected: '',
-      productList: [],
+      isLoading: false,
+      allProducts: [],
+      products: [],
     };
   },
   methods: {
     onChange(event) {
-      this.productList = this.productList.filter((item) => item.category === event.target.value);
-      console.log(this.productList);
+      const category = event.target.value;
+      if (category === '全部') {
+        this.products = this.allProducts;
+        return;
+      }
+
+      this.products = this.allProducts.filter((item) => item.category === category);
     },
-    async getProductList() {
-      await customerService.getProductList().then((res) => {
-        this.productList = res.data.products;
+    getProducts() {
+      customerService.getProducts().then((res) => {
+        this.products = res.data.products;
+        this.allProducts = res.data.products;
       });
     },
   },
   mounted() {
-    this.getProductList();
+    this.getProducts();
   },
 };
 </script>

@@ -6,8 +6,8 @@ const apiKey = 'ken888686';
 /**
  * 取得產品列表
  */
-async function getProductList() {
-  return await axios.get(`${url}/customer/${apiKey}/products`);
+function getProducts() {
+  return axios.get(`${url}/customer/${apiKey}/products`);
 }
 
-export { getProductList };
+export { getProducts };

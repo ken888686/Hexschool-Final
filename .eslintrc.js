@@ -13,5 +13,6 @@ module.exports = {
     'no-unused-vars': 'off',
     'import/prefer-default-export': 'off',
     'no-return-await': 'off',
+    'linebreak-style': 'off',
   },
 };
