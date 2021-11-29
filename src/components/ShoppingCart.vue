@@ -10,16 +10,16 @@
           <th width="15%">金額</th>
           <th width="15%"></th>
         </tr>
-        <tr>
+        <tr v-for="item in cartList" :key="item.id">
           <td>
             <div class="cardItem-title">
-              <img src="https://i.imgur.com/HvT3zlU.png" alt="" />
-              <p>Antony 雙人床架／雙人加大</p>
+              <img :src="item.product.images" :alt="item.title" />
+              <p>{{ item.product.title }}</p>
             </div>
           </td>
-          <td>NT$12,000</td>
-          <td>1</td>
-          <td>NT$12,000</td>
+          <td>NT${{ item.product.price }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>NT${{ item.product.price * item.quantity }}</td>
           <td class="discardBtn">
             <a href="#" class="material-icons"> clear </a>
           </td>
@@ -33,9 +33,32 @@
           <td>
             <p>總金額</p>
           </td>
-          <td>NT$13,980</td>
+          <td>NT${{ sum }}</td>
         </tr>
       </table>
     </div>
   </section>
 </template>
+<script>
+import * as service from '@/services';
+
+export default {
+  data() {
+    return {
+      cartList: [],
+      sum: 0,
+    };
+  },
+  methods: {
+    getCartList() {
+      service.getCart().then((res) => {
+        this.cartList = res.data.carts;
+        this.sum = this.cartList.reduce((acc, cur) => acc + cur.product.price * cur.quantity, 0);
+      });
+    },
+  },
+  mounted() {
+    this.getCartList();
+  },
+};
+</script>

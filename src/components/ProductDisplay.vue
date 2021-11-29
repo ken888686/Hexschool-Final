@@ -23,7 +23,7 @@
   </section>
 </template>
 <script>
-import * as customerService from '@/services/customer';
+import * as service from '@/services';
 
 export default {
   data() {
@@ -45,7 +45,7 @@ export default {
     },
     getProducts() {
       this.isLoading = true;
-      customerService.getProducts().then((res) => {
+      service.getProducts().then((res) => {
         this.products = res.data.products;
         this.allProducts = res.data.products;
         this.isLoading = false;
