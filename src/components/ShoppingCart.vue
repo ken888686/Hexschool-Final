@@ -21,7 +21,7 @@
           <td>{{ item.quantity }}</td>
           <td>NT${{ item.product.price * item.quantity }}</td>
           <td class="discardBtn">
-            <a href="#" class="material-icons"> clear </a>
+            <a href="#" class="material-icons" @click.prevent="deleteItem(item.id)"> clear </a>
           </td>
         </tr>
         <tr>
@@ -50,10 +50,18 @@ export default {
     };
   },
   methods: {
+    refreshCart(carts) {
+      this.cartList = carts;
+      this.sum = this.cartList.reduce((acc, cur) => acc + cur.product.price * cur.quantity, 0);
+    },
     getCartList() {
       service.getCart().then((res) => {
-        this.cartList = res.data.carts;
-        this.sum = this.cartList.reduce((acc, cur) => acc + cur.product.price * cur.quantity, 0);
+        this.refreshCart(res.data.carts);
+      });
+    },
+    deleteItem(cartId) {
+      service.deleteCartItem(cartId).then((res) => {
+        this.refreshCart(res.data.carts);
       });
     },
   },
