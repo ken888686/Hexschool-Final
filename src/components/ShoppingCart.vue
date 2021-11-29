@@ -26,7 +26,7 @@
         </tr>
         <tr>
           <td>
-            <a href="#" class="discardAllBtn">刪除所有品項</a>
+            <a href="#" class="discardAllBtn" @click.prevent="deleteCart">刪除所有品項</a>
           </td>
           <td></td>
           <td></td>
@@ -61,6 +61,11 @@ export default {
     },
     deleteItem(cartId) {
       service.deleteCartItem(cartId).then((res) => {
+        this.refreshCart(res.data.carts);
+      });
+    },
+    deleteCart() {
+      service.deleteCart().then((res) => {
         this.refreshCart(res.data.carts);
       });
     },
