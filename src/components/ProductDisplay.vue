@@ -41,9 +41,11 @@ export default {
       this.products = this.allProducts.filter((item) => item.category === category);
     },
     getProducts() {
+      this.isLoading = true;
       customerService.getProducts().then((res) => {
         this.products = res.data.products;
         this.allProducts = res.data.products;
+        this.isLoading = false;
       });
     },
   },
