@@ -21,12 +21,12 @@
           <td>{{ item.quantity }}</td>
           <td>NT${{ item.product.price * item.quantity }}</td>
           <td class="discardBtn">
-            <a href="#" class="material-icons"> clear </a>
+            <a href="#" class="material-icons" @click.prevent="deleteItem(item.id)"> clear </a>
           </td>
         </tr>
         <tr>
           <td>
-            <a href="#" class="discardAllBtn">刪除所有品項</a>
+            <a href="#" class="discardAllBtn" @click.prevent="deleteCart">刪除所有品項</a>
           </td>
           <td></td>
           <td></td>
@@ -50,10 +50,23 @@ export default {
     };
   },
   methods: {
+    refreshCart(carts) {
+      this.cartList = carts;
+      this.sum = this.cartList.reduce((acc, cur) => acc + cur.product.price * cur.quantity, 0);
+    },
     getCartList() {
       service.getCart().then((res) => {
-        this.cartList = res.data.carts;
-        this.sum = this.cartList.reduce((acc, cur) => acc + cur.product.price * cur.quantity, 0);
+        this.refreshCart(res.data.carts);
+      });
+    },
+    deleteItem(cartId) {
+      service.deleteCartItem(cartId).then((res) => {
+        this.refreshCart(res.data.carts);
+      });
+    },
+    deleteCart() {
+      service.deleteCart().then((res) => {
+        this.refreshCart(res.data.carts);
       });
     },
   },
