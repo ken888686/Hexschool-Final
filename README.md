@@ -8,7 +8,7 @@
 
 ### 參考資源
 
-- [Vuelidate](https://vuelidate-next.netlify.app/custom_validators.html)
+- [Vuelidate](https://vuelidate-next.netlify.app)
 
 ## Project setup
 
