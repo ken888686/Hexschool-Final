@@ -99,7 +99,7 @@ export default {
       customerName: { required },
       customerPhone: {
         required,
-        minLengthValue: minLength(3),
+        minLengthValue: minLength(9),
       },
       customerEmail: { required, email },
       customerAddress: { required },

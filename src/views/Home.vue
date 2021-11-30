@@ -4,7 +4,7 @@
   <FurnitureCompare />
   <Recommendation />
   <Transport />
-  <ProductDisplay />
+  <ProductDisplay @update="test" />
   <ShoppingCart />
   <OrderInfo />
 </template>
@@ -30,6 +30,11 @@ export default {
     ProductDisplay,
     ShoppingCart,
     OrderInfo,
+  },
+  methods: {
+    test() {
+      console.log('test');
+    },
   },
 };
 </script>
