@@ -4,8 +4,8 @@
   <FurnitureCompare />
   <Recommendation />
   <Transport />
-  <ProductDisplay @update="test" />
-  <ShoppingCart />
+  <ProductDisplay @updateCart="getCartList" />
+  <ShoppingCart ref="shoppingCart" />
   <OrderInfo />
 </template>
 
@@ -32,8 +32,8 @@ export default {
     OrderInfo,
   },
   methods: {
-    test() {
-      console.log('test');
+    getCartList() {
+      this.$refs.shoppingCart.getCartList();
     },
   },
 };

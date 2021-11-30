@@ -26,7 +26,7 @@
 import * as service from '@/services';
 
 export default {
-  emits: ['update'],
+  emits: ['updateCart'],
   data() {
     return {
       isLoading: false,
@@ -53,11 +53,11 @@ export default {
       });
     },
     addToCart(id, quantity) {
-      // this.isLoading = true;
-      // service.addToCart(id, quantity).then((res) => {
-      //   this.isLoading = false;
-      // });
-      this.$emit('update');
+      this.isLoading = true;
+      service.addToCart(id, quantity).then((res) => {
+        this.isLoading = false;
+        this.$emit('updateCart');
+      });
     },
   },
   mounted() {
