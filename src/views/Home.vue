@@ -6,7 +6,7 @@
   <Transport />
   <ProductDisplay @updateCart="getCartList" />
   <ShoppingCart ref="shoppingCart" />
-  <OrderInfo />
+  <OrderInfo @updateCart="getCartList" />
 </template>
 
 <script>

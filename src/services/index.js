@@ -59,7 +59,7 @@ function deleteCart() {
  * @param {訂單資料} data object
  */
 function sendOrder(data) {
-  return axios.delete(`${customerOrderUrl}`, data);
+  return axios.post(`${customerOrderUrl}`, { data });
 }
 
 export {
