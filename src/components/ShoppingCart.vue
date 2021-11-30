@@ -18,7 +18,11 @@
             </div>
           </td>
           <td>NT${{ item.product.price }}</td>
-          <td>{{ item.quantity }}</td>
+          <td class="quantity">
+            <span class="material-icons"> remove </span>
+            {{ item.quantity }}
+            <span class="material-icons"> add </span>
+          </td>
           <td>NT${{ item.product.price * item.quantity }}</td>
           <td class="discardBtn">
             <a href="#" class="material-icons" @click.prevent="deleteItem(item.id)"> clear </a>
@@ -75,3 +79,8 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.quantity {
+  vertical-align: middle;
+}
+</style>
