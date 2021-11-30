@@ -9,6 +9,7 @@
 ### 參考資源
 
 - [Vuelidate](https://vuelidate-next.netlify.app)
+- [How to Call a Vue.js 3 Component Method from Outside the Component?](https://thewebdev.info/2021/03/28/how-to-call-a-vue-js-3-component-method-from-outside-the-component/)
 
 ## Project setup
 
