@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
     y: 0,
   };
 
-  const mouseMoveHandler = function (e) {
+  function mouseMoveHandler(e) {
     // How far the mouse has been moved
     const dx = e.clientX - pos.x;
     const dy = e.clientY - pos.y;
@@ -170,16 +170,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Scroll the element
     ele.scrollTop = pos.top - dy;
     ele.scrollLeft = pos.left - dx;
-  };
-  const mouseUpHandler = function () {
+  }
+  function mouseUpHandler() {
     ele.style.cursor = 'grab';
     ele.style.removeProperty('user-select');
 
     document.removeEventListener('mousemove', mouseMoveHandler);
     document.removeEventListener('mouseup', mouseUpHandler);
-  };
+  }
 
-  const mouseDownHandler = function (e) {
+  function mouseDownHandler(e) {
     ele.style.cursor = 'grabbing';
     ele.style.userSelect = 'none';
 
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('mousemove', mouseMoveHandler);
     document.addEventListener('mouseup', mouseUpHandler);
-  };
+  }
 
   // Attach the handler
   ele.addEventListener('mousedown', mouseDownHandler);
