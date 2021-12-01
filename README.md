@@ -10,30 +10,7 @@
 
 - [Vuelidate](https://vuelidate-next.netlify.app)
 - [How to Call a Vue.js 3 Component Method from Outside the Component?](https://thewebdev.info/2021/03/28/how-to-call-a-vue-js-3-component-method-from-outside-the-component/)
-
-## Project setup
-
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
+- [Moment.js](https://momentjs.com/)
 
 ### Customize configuration
 
