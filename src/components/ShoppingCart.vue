@@ -18,10 +18,16 @@
             </div>
           </td>
           <td>NT${{ item.product.price }}</td>
-          <td class="quantity">
-            <span class="material-icons"> remove </span>
+          <td>
+            <button type="button" class="btn" :disabled="item.quantity === 1">
+              <span class="material-icons" @click="minusQuantity(item.id, item.quantity)">
+                remove
+              </span>
+            </button>
             {{ item.quantity }}
-            <span class="material-icons"> add </span>
+            <button type="button" class="btn">
+              <span class="material-icons" @click="addQuantity(item.id, item.quantity)"> add </span>
+            </button>
           </td>
           <td>NT${{ item.product.price * item.quantity }}</td>
           <td class="discardBtn">
@@ -47,6 +53,7 @@
 import * as service from '@/services';
 
 export default {
+  emits: ['loading'],
   data() {
     return {
       cartList: [],
@@ -59,18 +66,47 @@ export default {
       this.sum = this.cartList.reduce((acc, cur) => acc + cur.product.price * cur.quantity, 0);
     },
     getCartList() {
+      this.$emit('loading', true);
       service.getCart().then((res) => {
         this.refreshCart(res.data.carts);
+        this.$emit('loading', false);
       });
     },
     deleteItem(cartId) {
+      this.$emit('loading', true);
       service.deleteCartItem(cartId).then((res) => {
         this.refreshCart(res.data.carts);
+        this.$emit('loading', false);
       });
     },
     deleteCart() {
+      this.$emit('loading', true);
       service.deleteCart().then((res) => {
         this.refreshCart(res.data.carts);
+        this.$emit('loading', false);
+      });
+    },
+    addQuantity(cartId, quantity) {
+      this.$emit('loading', true);
+      service.updateQuantity(cartId, quantity + 1).then((res) => {
+        this.refreshCart(res.data.carts);
+        this.$emit('loading', false);
+      });
+    },
+    minusQuantity(cartId, quantity) {
+      this.$emit('loading', true);
+
+      if (quantity - 1 === 0) {
+        service.deleteCartItem(cartId).then((res) => {
+          this.refreshCart(res.data.carts);
+          this.$emit('loading', false);
+        });
+        return;
+      }
+
+      service.updateQuantity(cartId, quantity - 1).then((res) => {
+        this.refreshCart(res.data.carts);
+        this.$emit('loading', false);
       });
     },
   },
@@ -79,8 +115,3 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-.quantity {
-  vertical-align: middle;
-}
-</style>

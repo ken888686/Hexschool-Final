@@ -10,7 +10,6 @@
       <button type="button" class="btn btn-outline-dark" @click="getProducts">更新產品列表</button>
     </div>
     <ul class="productWrap">
-      <Loading :active="isLoading" />
       <li class="productCard" v-for="item in products" :key="item.id">
         <h4 class="productType">新品</h4>
         <img :src="item.images" :alt="item.description" />
@@ -26,10 +25,9 @@
 import * as service from '@/services';
 
 export default {
-  emits: ['updateCart'],
+  emits: ['updateCart', 'loading'],
   data() {
     return {
-      isLoading: false,
       allProducts: [],
       products: [],
       category: '',
@@ -44,19 +42,19 @@ export default {
       this.products = this.allProducts.filter((item) => item.category === event.target.value);
     },
     getProducts() {
-      this.isLoading = true;
+      this.$emit('loading', true);
       service.getProducts().then((res) => {
         this.products = res.data.products;
         this.allProducts = res.data.products;
         this.category = '全部';
-        this.isLoading = false;
+        this.$emit('loading', false);
       });
     },
     addToCart(id, quantity) {
-      this.isLoading = true;
+      this.$emit('loading', true);
       service.addToCart(id, quantity).then((res) => {
-        this.isLoading = false;
         this.$emit('updateCart');
+        this.$emit('loading', false);
       });
     },
   },

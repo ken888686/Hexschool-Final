@@ -82,7 +82,7 @@ import { required, email, minLength } from '@vuelidate/validators';
 import * as service from '@/services';
 
 export default {
-  emits: ['updateCart'],
+  emits: ['updateCart', 'loading'],
   setup() {
     return { v$: useVuelidate() };
   },
@@ -108,6 +108,7 @@ export default {
   },
   methods: {
     async onSubmit() {
+      this.$emit('loading', true);
       const isValidate = await this.v$.$validate();
       if (!isValidate) {
         return;
@@ -132,6 +133,7 @@ export default {
           this.customerAddress = '';
           this.payment = 'ATM';
           this.$emit('updateCart');
+          this.$emit('loading', false);
         })
         .catch((error) => {
           console.log(error);
