@@ -154,6 +154,9 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const ele = document.querySelector('.recommendation-wall');
+  if (!ele) {
+    return;
+  }
   ele.style.cursor = 'grab';
   let pos = {
     top: 0,
