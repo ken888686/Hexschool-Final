@@ -1,7 +1,7 @@
 <template>
   <section class="orderInfo wrap" id="orderInfo">
     <h3 class="section-title">填寫預訂資料</h3>
-    <form action="" class="orderInfo-form" @submit.prevent="onSubmit" novalidate>
+    <form action="" class="orderInfo-form" @submit.prevent="onSubmit">
       <div class="orderInfo-formGroup">
         <label for="customerName" class="orderInfo-label">姓名</label>
         <div class="orderInfo-inputWrap">
@@ -82,6 +82,7 @@ import { required, email, minLength } from '@vuelidate/validators';
 import * as service from '@/services';
 
 export default {
+  emits: ['updateCart', 'loading'],
   setup() {
     return { v$: useVuelidate() };
   },
@@ -99,7 +100,7 @@ export default {
       customerName: { required },
       customerPhone: {
         required,
-        minLengthValue: minLength(3),
+        minLengthValue: minLength(9),
       },
       customerEmail: { required, email },
       customerAddress: { required },
@@ -107,6 +108,7 @@ export default {
   },
   methods: {
     async onSubmit() {
+      this.$emit('loading', true);
       const isValidate = await this.v$.$validate();
       if (!isValidate) {
         return;
@@ -130,6 +132,8 @@ export default {
           this.customerEmail = '';
           this.customerAddress = '';
           this.payment = 'ATM';
+          this.$emit('updateCart');
+          this.$emit('loading', false);
         })
         .catch((error) => {
           console.log(error);

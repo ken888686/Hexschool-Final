@@ -31,6 +31,20 @@ function addToCart(id, quantity) {
 }
 
 /**
+ * 編輯購物車產品數量
+ * @param {string} cartId 購物車id
+ * @param {number} quantity 數量
+ */
+function updateQuantity(cartId, quantity) {
+  return axios.patch(customerCartUrl, {
+    data: {
+      id: cartId,
+      quantity,
+    },
+  });
+}
+
+/**
  * 取得購物車列表
  */
 function getCart() {
@@ -59,9 +73,9 @@ function deleteCart() {
  * @param {訂單資料} data object
  */
 function sendOrder(data) {
-  return axios.delete(`${customerOrderUrl}`, data);
+  return axios.post(`${customerOrderUrl}`, { data });
 }
 
 export {
-  getProducts, addToCart, getCart, deleteCartItem, deleteCart, sendOrder,
+  getProducts, addToCart, updateQuantity, getCart, deleteCartItem, deleteCart, sendOrder,
 };
