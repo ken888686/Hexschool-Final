@@ -1,10 +1,10 @@
 import axios from 'axios';
 import variables from './variables';
 
-const customerProductUrl = `${variables.url}/customer/${variables.apiKey}/products`;
-const customerCartUrl = `${variables.url}/customer/${variables.apiKey}/carts`;
-const customerOrderUrl = `${variables.url}/customer/${variables.apiKey}/orders`;
-const adminOrderUrl = `${variables.url}/admin/${variables.apiKey}/orders`;
+const customerProductUrl = `${variables.url}/customer/${variables.apiPath}/products`;
+const customerCartUrl = `${variables.url}/customer/${variables.apiPath}/carts`;
+const customerOrderUrl = `${variables.url}/customer/${variables.apiPath}/orders`;
+const adminOrderUrl = `${variables.url}/admin/${variables.apiPath}/orders`;
 
 // 產品 Product
 /**
@@ -76,6 +76,70 @@ function sendOrder(data) {
   return axios.post(`${customerOrderUrl}`, { data });
 }
 
+// 管理者 Admin
+
+/**
+ * 取得訂單列表
+ */
+function getOrderList() {
+  return axios.get(adminOrderUrl, {
+    headers: {
+      authorization: variables.apiKey,
+    },
+  });
+}
+
+/**
+ * 修改訂單狀態
+ * @param {string} orderId 訂單id
+ * @param {bool} paid 是否付款
+ */
+function updateOrderList(orderId, paid) {
+  return axios.put(adminOrderUrl, {
+    data: {
+      id: orderId,
+      paid,
+    },
+  }, {
+    headers: {
+      authorization: variables.apiKey,
+    },
+  });
+}
+
+/**
+ * 刪除全部訂單
+ */
+function deleteAllOrderList() {
+  return axios.delete(adminOrderUrl, {
+    headers: {
+      authorization: variables.apiKey,
+    },
+  });
+}
+
+/**
+ * 刪除特定訂單
+ * @param {string} orderId 訂單id
+ */
+function deleteOrder(orderId) {
+  return axios.delete(`${adminOrderUrl}/${orderId}`, {
+    headers: {
+      authorization: variables.apiKey,
+    },
+  });
+}
+
 export {
-  getProducts, addToCart, updateQuantity, getCart, deleteCartItem, deleteCart, sendOrder,
+  getProducts,
+  addToCart,
+  updateQuantity,
+  getCart,
+  deleteCartItem,
+  deleteCart,
+  sendOrder,
+  getOrderList,
+  updateOrderList,
+  deleteOrder,
+  deleteAllOrderList,
 };
