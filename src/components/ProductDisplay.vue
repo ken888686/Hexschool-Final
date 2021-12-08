@@ -2,10 +2,9 @@
   <section class="wrap productDisplay">
     <div class="d-flex align-items-center mb-2">
       <select name="" class="productSelect mb-0 me-3" @change="onChange" v-model="category">
-        <option value="全部">全部</option>
-        <option value="床架">床架</option>
-        <option value="收納">收納</option>
-        <option value="窗簾">窗簾</option>
+        <option v-for="(category, index) in categories" :key="index" :value="category">
+          {{ category }}
+        </option>
       </select>
       <button type="button" class="btn btn-outline-dark" @click="getProducts">更新產品列表</button>
     </div>
@@ -30,6 +29,7 @@ export default {
     return {
       allProducts: [],
       products: [],
+      categories: [],
       category: '',
     };
   },
@@ -41,11 +41,23 @@ export default {
       }
       this.products = this.allProducts.filter((item) => item.category === event.target.value);
     },
+    getCategoryList(data) {
+      this.categories = [];
+      data
+        .map((item) => item.category)
+        .forEach((category) => {
+          if (this.categories.indexOf(category) < 0) {
+            this.categories.push(category);
+          }
+        });
+      this.categories.unshift('全部');
+    },
     getProducts() {
       this.$emit('loading', true);
       service.getProducts().then((res) => {
         this.products = res.data.products;
         this.allProducts = res.data.products;
+        this.getCategoryList(res.data.products);
         this.category = '全部';
         this.$emit('loading', false);
       });
