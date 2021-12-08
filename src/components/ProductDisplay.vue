@@ -8,6 +8,18 @@
       </select>
       <button type="button" class="btn btn-outline-dark" @click="getProducts">更新產品列表</button>
     </div>
+    <div class="d-flex my-3">
+      <input
+        class="form-control me-2 searchInput"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+        v-model="keyword"
+      />
+      <button class="btn btn-outline-success searchBtn" type="submit" @click.prevent="search">
+        Search
+      </button>
+    </div>
     <ul class="productWrap">
       <li class="productCard" v-for="item in products" :key="item.id">
         <h4 class="productType">新品</h4>
@@ -31,6 +43,7 @@ export default {
       products: [],
       categories: [],
       category: '',
+      keyword: '',
     };
   },
   methods: {
@@ -68,6 +81,14 @@ export default {
         this.$emit('updateCart');
         this.$emit('loading', false);
       });
+    },
+    search() {
+      const keyword = this.keyword.trim().toLowerCase();
+      console.log(keyword);
+      this.products = this.allProducts.filter(
+        (item) => item.title.toLowerCase().match(keyword) !== null,
+      );
+      this.keyword = '';
     },
   },
   mounted() {
