@@ -16,8 +16,9 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
+          npm i -g npm@latest
           npm i -g node-gyp@latest
-          npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
+          npm config set node_gyp $(npm prefix -g)/lib/node_modules/node-gyp/bin/node-gyp.js
           npm ci
           npm run build
 
