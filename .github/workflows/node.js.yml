@@ -17,21 +17,12 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.5.0
         with:
-          node-version: 16
-
-      - name: Setup GCC/G++
-        run: sudo apt-get install "gcc-8" "g++-8"
+          node-version: 14
 
       - name: Install and Build 🔧
         run: |
           npm ci
           npm run build
-        env:
-          SKIP_SASS_BINARY_DOWNLOAD_FOR_CI: true
-          CC: "gcc-8"
-          CXX: "g++-8"
-          LINK: "gcc-8"
-          LINKXX: "g++-8"
 
       # - name: Copy Files 🔥
       #   run: |
