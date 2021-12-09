@@ -5,7 +5,7 @@
 ## 首頁
 
 - [前台](https://ken888686.github.io/Hexschool-Final/)
-- [後台](https://ken888686.github.io/Hexschool-Final/)
+- [後台](https://ken888686.github.io/Hexschool-Final/admin)
 
 ### 參考資源
 
