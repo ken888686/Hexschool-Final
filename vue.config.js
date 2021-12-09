@@ -1,4 +1,4 @@
 module.exports = {
-  publicPath: '/Hexschool-Final',
+  publicPath: '/Hexschool-Final/',
   outputDir: 'dist',
 };
