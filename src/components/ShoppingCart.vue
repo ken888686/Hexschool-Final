@@ -31,7 +31,9 @@
           </td>
           <td>NT${{ item.product.price * item.quantity }}</td>
           <td class="discardBtn">
-            <a href="#" class="material-icons" @click.prevent="deleteItem(item.id)"> clear </a>
+            <button type="button" class="btn btn-primary mb-3" @click="deleteItem(item.id)">
+              刪除
+            </button>
           </td>
         </tr>
         <tr>
